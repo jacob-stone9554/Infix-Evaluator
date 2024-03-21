@@ -1,10 +1,11 @@
 //author: Jacob Stone
-//version: 0319202401
+//version: 0319202402
 
 //this application serves the functionality of a calculator.
-//the program will accept a string expr from the user.
+//the program will accept a string expression from the user.
 //it will parse the string and determine what operation needs carried out.
 //once the operation is complete, it will display the result on the console.
+//It will continue prompting for input until the user enters "exit"
 
 
 //create the input interface. rl is short for readline
@@ -20,15 +21,23 @@ let operand2;
 let operator;
 let result;
 
-//prompt user, read in input and assign it to expr
-rl.question("Enter expression: ", expression => {
-    components = expression.split(" ");
+prompt();
 
-    result = eval(components)
+//prompt the user for an expression
+function prompt() {
+    rl.question("Enter expression: ", expression => {
+        if(expression.toLowerCase() === "exit") {
+            rl.close(); //if expression is "exit", close the interface and exit the program
+        }
+        else {
+            components = expression.split(" "); //break the expression into its components
 
-    console.log(result);
-    rl.close; //close the interface
-});
+            result = eval(components); //evaluate the components, return the expression
+            console.log(result); //display the result
+            prompt(); //prompt again
+        }
+    });
+}
 
 //this function looks at the elements in the array of components
 function eval(args) {
@@ -84,7 +93,7 @@ function eval(args) {
     }
 
     return result; //pass back the result of the operations
-}
+} //end of function eval();
 
 //check to see if an expression component is a number using regex matching
 function isNumeric(str) {
@@ -95,4 +104,5 @@ function isNumeric(str) {
 function isOperator(str) {
     return /^[+\-\*\/\%]|(\*\*)/.test(str); //returns true or false
 }
+
 
