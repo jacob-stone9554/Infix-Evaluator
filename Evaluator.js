@@ -33,7 +33,7 @@ function prompt() {
             components = expression.split(" "); //break the expression into its components
 
             result = eval(components); //evaluate the components, return the expression
-            console.log(result); //display the result
+            console.log("Result: " + result + "\n"); //display the result
             prompt(); //prompt again
         }
     });
